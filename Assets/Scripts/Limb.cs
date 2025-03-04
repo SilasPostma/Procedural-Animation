@@ -13,7 +13,7 @@ public class Limb
     {
         numEffectors = numeffectors;
         root = r;
-        float ls = 5;
+        float ls = 3;
         float sum = 0;
         segments = new List<EndEffector>();
         target = Target;
@@ -22,7 +22,7 @@ public class Limb
         {
             segments.Add(new EndEffector(r.x, r.y + sum, ls));
             sum += ls;
-            ls *= 0.8f;
+            ls *= 0.9f;
         }
     }
 
@@ -51,7 +51,7 @@ public class Limb
         {
             EndEffector current = segments[i];
             Vector2 direction = current.position - prev.position;
-            direction = direction.normalized * current.length;
+            direction = direction.normalized * prev.length;
             current.position = prev.position + direction;
             prev = current;
         }
@@ -60,6 +60,6 @@ public class Limb
     public void update()
     {
         ForwardKinematics();
-        //BackwardKinematics();
+        BackwardKinematics();
     }
 }

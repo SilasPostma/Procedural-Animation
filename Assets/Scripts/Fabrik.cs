@@ -9,28 +9,31 @@ public class Fabrik : MonoBehaviour
     public GameObject jointPrefab;
     private List<GameObject> jointMarkers;
     public int numJoints;
-    private int updateCounter;
     public GameObject targetGO;
-
 
     private void Start()
     {
-        limb = new Limb(new Vector2(0, 0), Vector2.zero, numJoints);
+        Vector2 root = Vector2.zero;
+        limb = new Limb(new Vector2(0, 0), root, numJoints);
 
         jointMarkers = new List<GameObject>();
 
         foreach (var segment in limb.segments)
         {
-            GameObject joint = Instantiate(jointPrefab, Vector3.zero, Quaternion.identity);
+            GameObject joint = Instantiate(jointPrefab, root, Quaternion.identity);
             jointMarkers.Add(joint);
         }
 
         lineRenderer.positionCount = jointMarkers.Count;
     }
 
+    private bool whatFunc;
 
-    private void FixedUpdate()
+    private void Update()
     {
+        limb.target = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        limb.update();
 
         for (int i = 0; i < limb.segments.Count; i++)
         {
@@ -42,15 +45,6 @@ public class Fabrik : MonoBehaviour
                 jointMarkers[i].transform.position = new Vector2(position.x, position.y);
             }
         }
-
-
-
-        limb.update();
-
-        limb.target = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //limb.target = (Vector2)targetGO.transform.position;
-
-        updateCounter = 0;
     }
 
 }

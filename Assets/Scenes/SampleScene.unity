@@ -259,7 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 299110336}
   jointPrefab: {fileID: 7233126747621166200, guid: a149e411a07f6bb4dbc15d35ef5641db, type: 3}
-  numJoints: 5
+  numJoints: 7
+  targetGO: {fileID: 0}
 --- !u!4 &299110338
 Transform:
   m_ObjectHideFlags: 0
